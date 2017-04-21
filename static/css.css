@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Aldrich|Russo+One');
+
+/* Panel */
+.panel-container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.panel-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+/* Tile */
+.tile {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #cccccc;
+
+  font-family: 'Aldrich', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 56px;
+}
+.tile-blank {
+  background-color: #ffffe8;
+}
+.tile-number {
+  background-color: #ffcccc;
+}
+.tile-op {
+  background-color: #ddddee;
+}
+.tile-op[data-op="+"] {
+  color: #5588ff;
+}
+.tile-op[data-op="-"] {
+  color: #ff4444;
+}
+.tile-op[data-op="*"] {
+  color: #229922;
+}
+.tile-op[data-op="/"] {
+  color: #f0a422;
+}
+.tile-eq {
+  background-color: #ffffff;
+}

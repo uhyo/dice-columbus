@@ -1,8 +1,26 @@
+import {
+    deserialize,
+} from '../util/panel';
+
 export interface BlankTile{
     type: 'blank';
 }
+export interface NumberTile{
+    type: 'number';
+    value: number;
+}
+export interface OpTile{
+    type: 'op';
+    value: '+' | '-' | '*' | '/';
+}
+export interface EqTile{
+    type: 'eq';
+}
 
 export type Tile =
+    NumberTile |
+    OpTile |
+    EqTile |
     BlankTile;
 
 export interface PanelState{
@@ -14,26 +32,12 @@ export interface PanelState{
 }
 
 // initial stateの作成
-const initialPanel: Array<Array<Tile>> = [];
-for (let y = 0; y < 3; y++){
-    const row: Array<Tile> = [];
-    for (let x = 0; x < 11; x++){
-        row.push({
-            type: 'blank',
-        });
-    }
-    initialPanel.push(row);
-}
-
-
-const initialState: PanelState = {
-    size: {
-        x: 11,
-        y: 3,
-    },
-    panel: initialPanel,
-};
-
+const initialState: PanelState = deserialize(`
+   3*2=4+2  |
+   520=520  |
+   8=8-0/3  |
+`);
+console.log(initialState);
 export default function reducer(state = initialState, _action: any){
     return state;
 }
