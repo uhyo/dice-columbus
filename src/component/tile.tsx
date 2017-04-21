@@ -15,6 +15,9 @@ export interface IPropTile{
     tile: Tile;
     moveFrom?: boolean;
     moveTo?: boolean;
+
+    dragStart?(type: 'mouse' | 'touch'): void;
+    dragMove?(): void;
 }
 export interface IStateTile{
 }
@@ -25,6 +28,8 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
             tile,
             moveFrom,
             moveTo,
+            dragStart,
+            dragMove,
         } = this.props;
         let c = '';
         if (moveFrom){
@@ -33,15 +38,32 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
         if (moveTo){
             c += ' tile-move-to';
         }
+        // ドラッグ開始
+        let handleMouseDown = (e: React.MouseEvent<HTMLElement>)=>{
+            if (e.button === 0){
+                e.preventDefault();
+                if (dragStart != null){
+                    dragStart('mouse');
+                }
+            }
+        };
+        let handleMouseMove;
+        if (dragMove != null){
+            handleMouseMove = ()=>{
+                dragMove();
+            };
+        }else{
+            handleMouseMove = void 0;
+        }
         switch(tile.type){
             case 'blank': {
-                return <div className={`tile tile-blank${c}`} />;
+                return <div className={`tile tile-blank${c}`}  onMouseMove={handleMouseMove} />;
             }
             case 'number': {
                 if (tile.remains){
                     c += ' tile-remains';
                 }
-                return <div className={`tile tile-number${c}`}>{
+                return <div className={`tile tile-number${c}`} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>{
                     tile.value
                 }</div>;
             }
@@ -49,7 +71,7 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
                 if (tile.remains){
                     c += ' tile-remains';
                 }
-                return <div className={`tile tile-op${c}`} data-op={tile.value}>{
+                return <div className={`tile tile-op${c}`} data-op={tile.value} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>{
                     opTable[tile.value]
                 }</div>;
             }
@@ -57,7 +79,8 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
                 if (tile.remains){
                     c += ' tile-remains';
                 }
-                return <div className={`tile tile-eq${c}`}>
+                return <div className={`tile tile-eq${c}`} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>
+
                     =
                 </div>;
             }

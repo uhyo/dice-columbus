@@ -12,6 +12,16 @@ import Tile from './tile';
 export interface IPropPanel{
     panel: PanelState;
     edit: EditState;
+
+    moveStart?(obj: {
+        type: 'mouse' | 'touch';
+        x: number;
+        y: number;
+    }): void;
+    moveOver?(obj: {
+        x: number;
+        y: number;
+    }): void;
 }
 export interface IStatePanel{
 }
@@ -25,6 +35,8 @@ export default class Panel extends React.Component<IPropPanel, IStatePanel>{
             edit: {
                 move,
             },
+            moveStart,
+            moveOver,
         } = this.props;
         return <div className="panel-container">{
             panel.map((row, i)=>{
@@ -40,15 +52,42 @@ export default class Panel extends React.Component<IPropPanel, IStatePanel>{
                                 moveTo = true;
                             }
                         }
+
+                        let handleDragStart;
+                        if (moveStart == null){
+                            handleDragStart = void 0;
+                        }else{
+                            handleDragStart = (type: 'mouse' | 'touch')=>{
+                                moveStart({
+                                    type,
+                                    x: j,
+                                    y: i,
+                                });
+                            };
+                        }
+                        let handleDragMove;
+                        if (moveOver == null || move == null){
+                            handleDragMove = void 0;
+                        }else{
+                            handleDragMove = ()=>{
+                                moveOver({
+                                    x: j,
+                                    y: i,
+                                });
+                            };
+                        }
+
                         return <Tile
                             key={`tile-${i}-${j}`}
                             tile={tile}
                             moveFrom={moveFrom}
                             moveTo={moveTo}
+                            dragStart={handleDragStart}
+                            dragMove={handleDragMove}
                             />
                     })
                 }</div>;
             })
-            }</div>;
+        }</div>;
     }
 }

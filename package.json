@@ -54,6 +54,7 @@
     "react-redux": "^5.0.4",
     "redis": "^2.6.3",
     "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "reflux": "^6.4.1",
     "reflux-promise": "^1.0.4",
     "st": "^1.2.0",
