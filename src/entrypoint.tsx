@@ -1,4 +1,7 @@
-// import * as React from 'react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
+import App from './container/index';
 
 document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -7,5 +10,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
         return;
     }
 
-    div.textContent = 'BOOM!';
+    const app = <App />;
+    ReactDOM.render(app, div);
 });
