@@ -1,10 +1,9 @@
 import * as React from 'react';
 
-import Panel from '../container/panel';
+import Board from './board';
 
 export default ()=>{
     return <div>
-        <p>Boom!!!</p>
-        <Panel/>
+        <Board/>
     </div>;
 };

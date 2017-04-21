@@ -1,5 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Aldrich|Russo+One');
 
+/* Board */
+.board-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  margin: 0.8rem;
+}
+.board-description {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+.description {
+  box-sizing: border-box;
+  flex: 50% 0 0;
+  margin: 0.6rem;
+  padding: 0.3rem;
+
+  background-color: #eeeeee;
+}
+.description h1 {
+  font-size: 1.4rem;
+  margin: 0 0 0.3rem 0;
+}
+.description p {
+  margin: 0.2rem 0;
+}
+
 /* Panel */
 .panel-container {
   display: flex;
@@ -9,6 +37,25 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+}
+
+/* Remains */
+.remains-wrapper {
+  box-sizing: border-box;
+  flex: 50% 0 0;
+  margin: 0.6rem;
+  padding: 0.3rem;
+  background-color: #bbeeff;
+}
+.remains-wrapper p {
+  margin: 0.2rem 0;
+}
+.remains {
+  display: flex;
+  flex-flow: row wrap;
+}
+.remains-tile {
+  margin: 4px;
 }
 
 /* Tile */
@@ -22,6 +69,16 @@
   font-weight: bold;
   text-align: center;
   line-height: 56px;
+
+  text-shadow:
+    0 2px 0 #ffffff,
+    2px 0 0 #ffffff,
+    0 -2px 0 #ffffff,
+    -2px 0 0 #ffffff,
+    -2px -2px 0 #ffffff,
+    2px -2px 0 #ffffff,
+    -2px 2px 0 #ffffff,
+    2px 2px 0 #ffffff;
 }
 .tile-blank {
   background-color: #ffffe8;
@@ -30,7 +87,18 @@
   background-color: #ffcccc;
 }
 .tile-op {
-  background-color: #ddddee;
+  background-color: #777777;
+}
+.tile.tile-remains{
+  border-color: black;
+  border-radius: 3px;
+}
+.tile-number.tile-remains {
+  background-color: #99b5ff;
+}
+.tile-op.tile-remains {
+  background-color: #440088;
+
 }
 .tile-op[data-op="+"] {
   color: #5588ff;
