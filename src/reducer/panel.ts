@@ -62,7 +62,7 @@ export default function reducer(state = initialState, action: Action){
                 return state;
             }
 
-            if (to.type === 'panel'){
+            if (from.type === 'panel' && to.type === 'panel'){
                 const targetTile = getTileAt(state, to);
                 if (targetTile == null){
                     return state;
@@ -70,12 +70,23 @@ export default function reducer(state = initialState, action: Action){
                 const state1 = setTileAt(state, from, targetTile);
                 const state2 = setTileAt(state1, to, movingTile);
                 return state2;
-            }else{
+            }else if (from.type === 'panel' && to.type === 'remains'){
                 const state1 = setTileAt(state, from, {
                     type: 'blank',
                 });
                 const state2 = setTileAt(state1, to, movingTile);
                 return state2;
+            }else if (from.type === 'remains' && to.type === 'panel'){
+                const targetTile = getTileAt(state, to);
+                if (targetTile == null){
+                    return state;
+                }
+                const state1 = setTileAt(state, to, movingTile);
+                const state2 = removeRemainsTile(state1, from.idx);
+                const state3 = setTileAt(state2, from, targetTile);
+                return state3;
+            }else{
+                return state;
             }
         }
         default: {
@@ -126,6 +137,9 @@ function setTileAt(state: PanelState, position: MovePosition, tile: Tile): Panel
             panel,
         };
     }else{
+        if (tile.type === 'blank'){
+            return state;
+        }
         const remains = [
             ... state.remains,
             tile,
@@ -135,4 +149,13 @@ function setTileAt(state: PanelState, position: MovePosition, tile: Tile): Panel
             remains,
         };
     }
+}
+function removeRemainsTile(state: PanelState, idx: number): PanelState{
+    return {
+        ...state,
+        remains: [
+            ... state.remains.slice(0, idx),
+            ... state.remains.slice(idx+1),
+        ],
+    };
 }

@@ -41,10 +41,10 @@ export function moveStartRemainsAction(obj: {
 }){
     return (dispatch: any)=>{
         handleMoveEnd(obj.eventtype, dispatch);
-        return {
+        dispatch({
             type: 'movestart-remains',
             ... obj,
-        };
+        });
     };
 }
 

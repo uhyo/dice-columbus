@@ -16,6 +16,7 @@ export interface IPropTile{
     moveFrom?: boolean;
     moveTo?: boolean;
 
+    dragMode?: 'mouse' | 'touch';
     dragStart?(type: 'mouse' | 'touch'): void;
     dragMove?(): void;
 }
@@ -28,6 +29,7 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
             tile,
             moveFrom,
             moveTo,
+            dragMode,
             dragStart,
             dragMove,
         } = this.props;
@@ -48,7 +50,7 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
             }
         };
         let handleMouseMove;
-        if (dragMove != null){
+        if (dragMove != null && dragMode === 'mouse'){
             handleMouseMove = ()=>{
                 dragMove();
             };

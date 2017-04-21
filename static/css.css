@@ -46,9 +46,13 @@
   margin: 0.6rem;
   padding: 0.3rem;
   background-color: #bbeeff;
+  border: 1px solid transparent;
 }
 .remains-wrapper p {
   margin: 0.2rem 0;
+}
+.remains-wrapper.remains-move-to {
+  border: 1px solid blue;
 }
 .remains {
   display: flex;
@@ -89,10 +93,6 @@
 .tile-op {
   background-color: #777777;
 }
-.tile.tile-remains{
-  border-color: black;
-  border-radius: 3px;
-}
 .tile-number.tile-remains {
   background-color: #99b5ff;
 }
@@ -114,6 +114,11 @@
 }
 .tile-eq {
   background-color: #ffffff;
+}
+
+.remains .tile{
+  border-color: black;
+  border-radius: 3px;
 }
 
 .tile.tile-move-to {

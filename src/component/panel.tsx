@@ -82,6 +82,7 @@ export default class Panel extends React.Component<IPropPanel, IStatePanel>{
                             tile={tile}
                             moveFrom={moveFrom}
                             moveTo={moveTo}
+                            dragMode={move && move.type || void 0}
                             dragStart={handleDragStart}
                             dragMove={handleDragMove}
                             />
