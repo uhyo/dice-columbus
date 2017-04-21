@@ -115,3 +115,10 @@
 .tile-eq {
   background-color: #ffffff;
 }
+
+.tile.tile-move-to {
+  border-color: #0000ff;
+}
+.tile.tile-move-from {
+  border-color: #ff0000;
+}

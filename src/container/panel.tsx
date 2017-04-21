@@ -5,7 +5,7 @@ import {
 import PanelComponent from '../component/panel';
 
 const PanelContainer = connect(
-    ({panel})=>({panel}),
+    ({panel, edit})=>({panel, edit}),
 )(PanelComponent);
 
 export default PanelContainer;

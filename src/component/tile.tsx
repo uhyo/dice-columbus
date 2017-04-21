@@ -13,6 +13,8 @@ const opTable = {
 
 export interface IPropTile{
     tile: Tile;
+    moveFrom?: boolean;
+    moveTo?: boolean;
 }
 export interface IStateTile{
 }
@@ -21,26 +23,41 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
     render(){
         const {
             tile,
+            moveFrom,
+            moveTo,
         } = this.props;
+        let c = '';
+        if (moveFrom){
+            c += ' tile-move-from';
+        }
+        if (moveTo){
+            c += ' tile-move-to';
+        }
         switch(tile.type){
             case 'blank': {
-                return <div className="tile tile-blank" />;
+                return <div className={`tile tile-blank${c}`} />;
             }
             case 'number': {
-                const remains = tile.remains ? ' tile-remains' : '';
-                return <div className={`tile tile-number${remains}`}>{
+                if (tile.remains){
+                    c += ' tile-remains';
+                }
+                return <div className={`tile tile-number${c}`}>{
                     tile.value
                 }</div>;
             }
             case 'op': {
-                const remains = tile.remains ? ' tile-remains' : '';
-                return <div className={`tile tile-op${remains}`} data-op={tile.value}>{
+                if (tile.remains){
+                    c += ' tile-remains';
+                }
+                return <div className={`tile tile-op${c}`} data-op={tile.value}>{
                     opTable[tile.value]
                 }</div>;
             }
             case 'eq': {
-                const remains = tile.remains ? ' tile-remains' : '';
-                return <div className={`tile tile-eq${remains}`}>
+                if (tile.remains){
+                    c += ' tile-remains';
+                }
+                return <div className={`tile tile-eq${c}`}>
                     =
                 </div>;
             }

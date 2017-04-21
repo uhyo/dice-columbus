@@ -5,7 +5,7 @@ import {
 import RemainsComponent from '../component/remains';
 
 const RemainsContainer = connect(
-    ({panel})=>({panel}),
+    ({panel, edit})=>({panel, edit}),
 )(RemainsComponent);
 
 export default RemainsContainer;
