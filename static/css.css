@@ -1,21 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Aldrich|Russo+One');
 
+* {
+  box-sizing: border-box;
+}
 /* Board */
 .board-wrapper {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   justify-content: center;
   margin: 0.8rem;
+}
+.board {
+  display: flex;
+  flex-flow: column nowrap;
 }
 .board-description {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .description {
-  box-sizing: border-box;
-  flex: 50% 0 0;
-  margin: 0.6rem;
+  flex: 48% 0 1;
+  margin: 0.6rem 0.6rem 0.6rem 0;
   padding: 0.3rem;
 
   background-color: #eeeeee;
@@ -32,6 +38,7 @@
 .panel-container {
   display: flex;
   flex-flow: column nowrap;
+  touch-action: none;
 }
 .panel-row {
   display: flex;
@@ -41,12 +48,13 @@
 
 /* Remains */
 .remains-wrapper {
-  box-sizing: border-box;
-  flex: 50% 0 0;
-  margin: 0.6rem;
+  flex: 48% 0 1;
+  margin: 0.6rem 0 0.6rem 0.6rem;
   padding: 0.3rem;
   background-color: #bbeeff;
   border: 1px solid transparent;
+
+  touch-action: none;
 }
 .remains-wrapper p {
   margin: 0.2rem 0;

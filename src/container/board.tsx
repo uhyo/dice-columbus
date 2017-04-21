@@ -14,7 +14,9 @@ import {
 import BoardComponent from '../component/board';
 
 const BoardContainer = connect(
-    ()=>({}),
+    ({panel})=>({
+        size: panel.size,
+    }),
     (dispatch)=>{
         return {
             moveFromPanel(x: number, y: number){
