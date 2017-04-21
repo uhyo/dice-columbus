@@ -3,6 +3,9 @@ import * as React from 'react';
 import {
     Tile,
 } from '../reducer/panel';
+import {
+    MovePosition,
+} from '../reducer/edit';
 
 const opTable = {
     '+': '+',
@@ -16,9 +19,7 @@ export interface IPropTile{
     moveFrom?: boolean;
     moveTo?: boolean;
 
-    dragMode?: 'mouse' | 'touch';
-    dragStart?(type: 'mouse' | 'touch'): void;
-    dragMove?(): void;
+    position: MovePosition;
 }
 export interface IStateTile{
 }
@@ -29,9 +30,7 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
             tile,
             moveFrom,
             moveTo,
-            dragMode,
-            dragStart,
-            dragMove,
+            position,
         } = this.props;
         let c = '';
         if (moveFrom){
@@ -40,32 +39,25 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
         if (moveTo){
             c += ' tile-move-to';
         }
-        // ドラッグ開始
-        let handleMouseDown = (e: React.MouseEvent<HTMLElement>)=>{
-            if (e.button === 0){
-                e.preventDefault();
-                if (dragStart != null){
-                    dragStart('mouse');
-                }
-            }
-        };
-        let handleMouseMove;
-        if (dragMove != null && dragMode === 'mouse'){
-            handleMouseMove = ()=>{
-                dragMove();
-            };
+        const beacon: Record<string, string> = {};
+        if (position.type === 'panel'){
+            beacon['data-panel'] = 'panel';
+            beacon['data-x'] = String(position.x);
+            beacon['data-y'] = String(position.y);
         }else{
-            handleMouseMove = void 0;
+            beacon['data-remains'] = 'remains';
+            beacon['data-idx'] = String(position.idx);
         }
+
         switch(tile.type){
             case 'blank': {
-                return <div className={`tile tile-blank${c}`}  onMouseMove={handleMouseMove} />;
+                return <div className={`tile tile-blank${c}`} {...beacon} />;
             }
             case 'number': {
                 if (tile.remains){
                     c += ' tile-remains';
                 }
-                return <div className={`tile tile-number${c}`} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>{
+                return <div className={`tile tile-number${c}`} {...beacon} >{
                     tile.value
                 }</div>;
             }
@@ -73,7 +65,7 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
                 if (tile.remains){
                     c += ' tile-remains';
                 }
-                return <div className={`tile tile-op${c}`} data-op={tile.value} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>{
+                return <div className={`tile tile-op${c}`} data-op={tile.value} {...beacon}>{
                     opTable[tile.value]
                 }</div>;
             }
@@ -81,8 +73,7 @@ export default class TileComponent extends React.Component<IPropTile, IStateTile
                 if (tile.remains){
                     c += ' tile-remains';
                 }
-                return <div className={`tile tile-eq${c}`} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>
-
+                return <div className={`tile tile-eq${c}`} {...beacon}>
                     =
                 </div>;
             }

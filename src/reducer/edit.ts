@@ -7,7 +7,6 @@ export interface EditState{
 }
 
 export interface Move{
-    type: 'mouse' | 'touch';
     from: MovePosition;
     to: MovePosition | undefined;
 }
@@ -32,7 +31,6 @@ export default function reducer(state: EditState = initialState, action: Action)
         case 'movestart-panel': {
             return {
                 move: {
-                    type: action.eventtype,
                     from: {
                         type: 'panel',
                         x: action.x,
@@ -49,7 +47,6 @@ export default function reducer(state: EditState = initialState, action: Action)
         case 'movestart-remains': {
             return {
                 move: {
-                    type: action.eventtype,
                     from: {
                         type: 'remains',
                         idx: action.idx,
@@ -89,6 +86,17 @@ export default function reducer(state: EditState = initialState, action: Action)
                         type: 'remains',
                         idx: 0,
                     },
+                },
+            };
+        }
+        case 'moveover-none': {
+            if (state.move == null){
+                return state;
+            }
+            return {
+                move: {
+                    ... state.move,
+                    to: void 0,
                 },
             };
         }

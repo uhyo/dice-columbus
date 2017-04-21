@@ -1,12 +1,10 @@
 export interface MoveStartPanelAction{
     type: 'movestart-panel';
-    eventtype: 'mouse' | 'touch';
     x: number;
     y: number;
 }
 export interface MoveStartRemainsAction{
     type: 'movestart-remains';
-    eventtype: 'mouse' | 'touch';
     idx: number;
 }
 export interface MoveOverPanelAction{
@@ -17,34 +15,29 @@ export interface MoveOverPanelAction{
 export interface MoveOverRemainsAction{
     type: 'moveover-remains';
 }
+export interface MoveOverNoneAction{
+    type: 'moveover-none';
+}
 export interface MoveEndAction{
     type: 'moveend';
 }
 
 export function moveStartPanelAction(obj: {
-    eventtype: 'mouse' | 'touch';
     x: number;
     y: number;
 }){
-    return (dispatch: any)=>{
-        handleMoveEnd(obj.eventtype, dispatch);
-        dispatch({
-            type: 'movestart-panel',
-            ... obj,
-        });
+    return {
+        type: 'movestart-panel',
+        ... obj,
     };
 }
 
 export function moveStartRemainsAction(obj: {
-    eventtype: 'mouse' | 'touch';
     idx: number;
 }){
-    return (dispatch: any)=>{
-        handleMoveEnd(obj.eventtype, dispatch);
-        dispatch({
-            type: 'movestart-remains',
-            ... obj,
-        });
+    return {
+        type: 'movestart-remains',
+        ... obj,
     };
 }
 
@@ -61,6 +54,12 @@ export function moveOverPanelAction(obj: {
 export function moveOverRemainsAction(): MoveOverRemainsAction{
     return {
         type: 'moveover-remains',
+    };
+}
+
+export function moveOverNoneAction(): MoveOverNoneAction{
+    return {
+        type: 'moveover-none',
     };
 }
 
@@ -89,7 +88,8 @@ export function moveEndAction(){
     };;
 }
 
-function handleMoveEnd(eventtype: 'mouse' | 'touch', dispatch: any): void{
+/*
+function handleMoveAround(eventtype: 'mouse' | 'touch', dispatch: any): void{
     if (eventtype === 'mouse'){
         const handler = (e: MouseEvent)=>{
             if (e.button === 0){
@@ -98,12 +98,22 @@ function handleMoveEnd(eventtype: 'mouse' | 'touch', dispatch: any): void{
             }
         };
         document.addEventListener('mouseup', handler, false);
+    }else{
+        const handler = ()=>{
+            dispatch(moveEndAction());
+            document.removeEventListener('touchend', handler, false);
+            document.removeEventListener('touchcancel', handler, false);
+        };
+            document.addEventListener('touchend', handler, false);
+        document.addEventListener('touchcancel', handler, false);
     }
 }
+*/
 
 export type EditAction =
     MoveStartPanelAction |
     MoveStartRemainsAction |
     MoveOverPanelAction |
     MoveOverRemainsAction |
+    MoveOverNoneAction |
     MoveEndAction;

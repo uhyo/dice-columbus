@@ -77,14 +77,18 @@ export default class Panel extends React.Component<IPropPanel, IStatePanel>{
                             };
                         }
 
+                        const position = {
+                            type: 'panel',
+                            x: j,
+                            y: i,
+                        };
+
                         return <Tile
                             key={`tile-${i}-${j}`}
                             tile={tile}
                             moveFrom={moveFrom}
                             moveTo={moveTo}
-                            dragMode={move && move.type || void 0}
-                            dragStart={handleDragStart}
-                            dragMove={handleDragMove}
+                            position={position as any}
                             />
                     })
                 }</div>;

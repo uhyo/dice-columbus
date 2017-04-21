@@ -12,12 +12,6 @@ import Tile from './tile';
 export interface IPropRemains{
     panel: PanelState;
     edit: EditState;
-
-    moveStart?(obj: {
-        type: 'mouse' | 'touch';
-        idx: number;
-    }): void;
-    moveOver?(): void;
 }
 export interface IStateRemains{
 }
@@ -32,24 +26,13 @@ export default class Remains extends React.Component<IPropRemains, IStateRemains
             edit: {
                 move,
             },
-            moveStart,
-            moveOver,
         } = this.props;
 
-        const dragMode = move && move.type || void 0;
-        let handleMouseOver;
-        if (moveOver != null && dragMode === 'mouse'){
-            handleMouseOver = ()=>{
-                moveOver();
-            };
-        }else{
-            handleMouseOver = void 0;
-        }
         let c = 'remains-wrapper';
         if (move != null && move.to != null && move.to.type === 'remains' && (move.from == null || move.from.type !== 'remains')){
             c += ' remains-move-to';
         }
-        return <div className={c} onMouseOver={handleMouseOver}>
+        return <div className={c} data-remainsarea="remainsarea">
             <p>余り</p>
             <div className="remains">{
                 remains.map((tile, i)=>{
@@ -61,23 +44,15 @@ export default class Remains extends React.Component<IPropRemains, IStateRemains
                             moveFrom = true;
                         }
                     }
-                    let dragStart;
-                    if (moveStart != null){
-                        dragStart = (type: 'mouse' | 'touch')=>{
-                            moveStart({
-                                type,
-                                idx: i,
-                            });
-                        };
-                    }else{
-                        dragStart = void 0;
-                    }
+                    const position = {
+                        type: 'remains',
+                        idx: i,
+                    };
                     return <div key={`remains-${i}`} className="remains-tile">
                         <Tile
                             tile={tile}
                             moveFrom={moveFrom}
-                            dragMode={dragMode}
-                            dragStart={dragStart}
+                            position={position as any}
                             />
                     </div>;
                 })
