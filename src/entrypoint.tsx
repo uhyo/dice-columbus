@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as ReactFastClick from 'react-fastclick';
 import * as qs from 'query-string';
 
 import store from './store/index';
@@ -13,7 +14,10 @@ import {
 
 import App from './container/index';
 
+ReactFastClick();
+
 document.addEventListener('DOMContentLoaded', ()=>{
+
 
     const div = document.getElementById('app');
     if (div == null){
