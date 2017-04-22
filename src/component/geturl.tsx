@@ -23,6 +23,14 @@ export default class Geturl extends React.Component<IPropGeturl, IStateGeturl>{
             url: '',
         };
     }
+    componentWillReceiveProps(nextProps: IPropGeturl){
+        if (this.props.panel !== nextProps.panel){
+            this.setState({
+                open: false,
+                url: '',
+            });
+        }
+    }
     componentDidUpdate(){
         const {
             open,
@@ -70,7 +78,6 @@ export default class Geturl extends React.Component<IPropGeturl, IStateGeturl>{
             };
 
             urlArea = <div>
-                <p>※ 問題を変更したら再度取得ボタンを押してください。</p>
                 <pre className="geturl-url" ref="urlarea" onClick={handleSelectUrl}>
                     {url}
                 </pre>
