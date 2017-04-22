@@ -63,6 +63,9 @@ export function deserialize(str: string): PanelState{
             state = 'parsing';
         }
     }
+    if (state==='parsing' && currentRow.length > 0){
+        result.push(currentRow);
+    }
 
     // size
     let x = 0;

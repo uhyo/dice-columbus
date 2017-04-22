@@ -86,6 +86,7 @@ export default class Geturl extends React.Component<IPropGeturl, IStateGeturl>{
             urlArea = null;
         }
         return <div className="geturl-wrapper">
+            <p>この問題を共有するには、問題のURLを用いてください。</p>
             <div className="geturl-button" onClick={handleGeturl}>この問題のURLを取得</div>
             {urlArea}
         </div>;

@@ -17,6 +17,11 @@ export default function reducer(state: EditorState = initialState, action: Actio
                 open: action.open,
             };
         }
+        case 'tile-move': {
+            return {
+                open: false,
+            };
+        }
         default: {
             return state;
         }
