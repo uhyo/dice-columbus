@@ -65,7 +65,7 @@ export default function reducer(state = initialState, action: Action){
 
             if (from.type === 'panel' && to.type === 'panel'){
                 const targetTile = getTileAt(state, to);
-                if (targetTile == null){
+                if (targetTile == null || isTileSame(movingTile, targetTile)){
                     return state;
                 }
                 const state1 = setTileAt(state, from, targetTile);
@@ -79,7 +79,7 @@ export default function reducer(state = initialState, action: Action){
                 return state2;
             }else if (from.type === 'remains' && to.type === 'panel'){
                 const targetTile = getTileAt(state, to);
-                if (targetTile == null){
+                if (targetTile == null || isTileSame(movingTile, targetTile)){
                     return state;
                 }
                 const state1 = setTileAt(state, to, movingTile);
@@ -162,4 +162,23 @@ function removeRemainsTile(state: PanelState, idx: number): PanelState{
             ... state.remains.slice(idx+1),
         ],
     };
+}
+
+function isTileSame(tile1: Tile, tile2: Tile): boolean{
+    if (tile1.type !== tile2.type){
+        return false;
+    }
+    if (tile1.type === 'blank'){
+        return true;
+    }
+    if (tile1.type === 'number' && tile1.value === (tile2 as NumberTile).value && tile1.remains === (tile2 as NumberTile).remains){
+        return true;
+    }
+    if (tile1.type === 'op' && tile1.value === (tile2 as OpTile).value && tile1.remains === (tile2 as OpTile).remains){
+        return true;
+    }
+    if (tile1.type === 'eq' && tile1.remains === (tile2 as EqTile).remains){
+        return true;
+    }
+    return false;
 }

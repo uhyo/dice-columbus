@@ -49,7 +49,6 @@ export function historyForwardAction(){
             return;
         }
         const nextPanel = forward[0];
-        console.log('n', nextPanel);
         dispatch({
             type: 'set-panel',
             panel: nextPanel,
