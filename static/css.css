@@ -3,6 +3,9 @@
 * {
   box-sizing: border-box;
 }
+body {
+  font-family: sans-serif;
+}
 /* Board */
 .board-wrapper {
   display: flex;

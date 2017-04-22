@@ -32,6 +32,9 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
     protected touchStartHandler: any;
     protected touchMoveHandler: any;
     protected touchEndHandler: any;
+    constructor(props: IPropBoard){
+        super(props);
+    }
     componentDidMount(){
         this.mouseDownHandler = (e: MouseEvent)=>{
             const {
@@ -44,6 +47,8 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
             }
             if (this.handleMoveStart(clientX, clientY)){
                 e.preventDefault();
+            }else{
+                return;
             }
 
             this.mouseMoveHandler = (e: MouseEvent)=>{
@@ -51,7 +56,11 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
                     clientX,
                     clientY,
                 } = e;
-                this.handleMove(clientX, clientY);
+                try {
+                    this.handleMove(clientX, clientY);
+                }catch(e){
+                    alert(e);
+                }
             };
             this.mouseUpHandler = ()=>{
                 this.handleMoveEnd();
@@ -78,21 +87,26 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
                 identifier,
             } = t;
 
-            this.handleMoveStart(clientX, clientY);
+
+            if (this.handleMoveStart(clientX, clientY)){
+                e.preventDefault();
+            }else{
+                return;
+            }
 
             this.touchMoveHandler = (e: TouchEvent)=>{
                 const {
-                    changedTouches,
+                    targetTouches,
                 } = e;
-                for (let i = 0; i < changedTouches.length; i++){
+                for (let i = 0; i < targetTouches.length; i++){
                     const {
                         identifier: id2,
                         clientX,
                         clientY,
-                    } = changedTouches[i];
+                    } = targetTouches[i];
                     if (identifier === id2){
                         this.handleMove(clientX, clientY);
-                        break;
+                        return;
                     }
                 }
             };
@@ -140,14 +154,18 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
         } = this.props;
         const pnt = document.elementFromPoint(clientX, clientY) as HTMLElement;
 
-        const elm = findParent(pnt, elm=>
-            elm.dataset.panel === 'panel' ||
-            elm.dataset.remains === 'remains');
+        const elm = findParent(pnt, elm=>{
+            // `elm.dataset.panel` causes bugs on safari
+            const p = elm.getAttribute('data-panel');
+            const r = elm.getAttribute('data-remains');
+            return p === 'panel' ||
+                r === 'remains';
+        });
         if (elm != null){
-            if (elm.dataset.panel === 'panel'){
-                moveFromPanel(parseInt(elm.dataset.x!), parseInt(elm.dataset.y!));
+            if (elm.getAttribute('data-panel') === 'panel'){
+                moveFromPanel(parseInt(elm.getAttribute('data-x')!), parseInt(elm.getAttribute('data-y')!));
             }else{
-                moveFromRemains(parseInt(elm.dataset.idx!));
+                moveFromRemains(parseInt(elm.getAttribute('data-idx')!));
             }
             return true;
         }
@@ -161,12 +179,25 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
         } = this.props;
         const pnt = document.elementFromPoint(clientX, clientY) as HTMLElement;
 
-        const elm = findParent(pnt, elm=>
-            elm.dataset.panel === 'panel' ||
-            elm.dataset.remainsarea === 'remainsarea');
+        let cnt = '';
+        const elm = findParent(pnt, elm=>{
+            // `elm.dataset.panel` causes bugs on safari
+            const p = elm.getAttribute('data-panel');
+            const r = elm.getAttribute('data-remainsarea');
+            return p === 'panel' ||
+                r === 'remainsarea';
+        });
+
+        if (pnt != null){
+            this.setState({
+                cnt,
+            });
+        }
+        if (pnt != null && elm != null){
+        }
         if (elm != null){
-            if (elm.dataset.panel === 'panel'){
-                moveOverPanel(parseInt(elm.dataset.x!), parseInt(elm.dataset.y!));
+            if (elm.getAttribute('data-panel') === 'panel'){
+                moveOverPanel(parseInt(elm.getAttribute('data-x')!), parseInt(elm.getAttribute('data-y')!));
             }else{
                 moveOverRemains();
             }
