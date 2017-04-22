@@ -57,6 +57,7 @@
     "redux-thunk": "^2.2.0",
     "reflux": "^6.4.1",
     "reflux-promise": "^1.0.4",
+    "reselect": "^3.0.0",
     "st": "^1.2.0",
     "tslib": "^1.6.0",
     "type-is": "^1.6.13",

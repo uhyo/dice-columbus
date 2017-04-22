@@ -24,13 +24,11 @@ module.exports={
     },
     module: {
         loaders: [
-            /*
             {
                 test: /\.js$/,
                 loader: 'source-map-loader',
                 enforce: 'pre',
             },
-           */
         ]
     },
     plugins,

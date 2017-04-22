@@ -4,7 +4,11 @@ import {
 import {
     EditAction,
 } from './edit';
+import {
+    ModifyAction,
+} from './modify';
 
 export type Action =
     PanelAction |
-    EditAction;
+    EditAction |
+    ModifyAction;

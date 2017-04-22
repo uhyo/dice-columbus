@@ -4,6 +4,8 @@ import Panel from '../container/panel';
 import Remains from '../container/remains';
 import Description from './description';
 
+import Edit from '../container/edit';
+
 import {
     findParent,
 } from '../util/dom';
@@ -39,8 +41,9 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
             if (button !== 0){
                 return;
             }
-            e.preventDefault();
-            this.handleMoveStart(clientX, clientY);
+            if (this.handleMoveStart(clientX, clientY)){
+                e.preventDefault();
+            }
 
             this.mouseMoveHandler = (e: MouseEvent)=>{
                 const {
@@ -74,7 +77,6 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
                 identifier,
             } = t;
 
-            e.preventDefault();
             this.handleMoveStart(clientX, clientY);
 
             this.touchMoveHandler = (e: TouchEvent)=>{
@@ -116,7 +118,7 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
         } = this.props.size;
         const width = Math.max(300, x * 48);
         const style = {
-           'max-width': `${width}px`,
+           'maxWidth': `${width}px`,
         };
         return <div className="board-wrapper">
             <div className="board" style={style}>
@@ -125,10 +127,11 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
                     <Description />
                     <Remains />
                 </div>
+                <Edit />
             </div>
         </div>;
     }
-    protected handleMoveStart(clientX: number, clientY: number): void{
+    protected handleMoveStart(clientX: number, clientY: number): boolean{
         const {
             moveFromPanel,
             moveFromRemains,
@@ -144,7 +147,9 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
             }else{
                 moveFromRemains(parseInt(elm.dataset.idx!));
             }
+            return true;
         }
+        return false;
     }
     protected handleMove(clientX: number, clientY: number): void{
         const {

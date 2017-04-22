@@ -92,3 +92,37 @@ export function deserialize(str: string): PanelState{
         remains,
     };
 }
+
+export function serialize({size, panel, remains}: PanelState): string{
+    let result = '';
+
+    for (let y = 0; y < size.y; y++){
+        const row = panel[y];
+        for (let x = 0; x < size.x; x++){
+            const tile = row[x];
+            result += tileString(tile);
+        }
+        result += '|\n';
+    }
+    result += ';';
+    for (const tile of remains){
+        result += tileString(tile);
+    }
+    return result;
+}
+function tileString(tile: Tile): string{
+    switch (tile.type){
+        case 'blank': {
+            return ' ';
+        }
+        case 'number': {
+            return String(tile.value);
+        }
+        case 'op': {
+            return tile.value;
+        }
+        case 'eq': {
+            return '=';
+        }
+    }
+}

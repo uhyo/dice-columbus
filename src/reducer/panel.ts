@@ -89,6 +89,9 @@ export default function reducer(state = initialState, action: Action){
                 return state;
             }
         }
+        case 'set-panel': {
+            return action.panel;
+        }
         default: {
             return state;
         }
