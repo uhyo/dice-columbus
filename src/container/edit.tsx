@@ -9,7 +9,8 @@ import {
 import EditComponent from '../component/edit';
 
 const EditContainer = connect(
-    ({modify: {open}})=>({
+    ({panel, modify: {open}})=>({
+        panel,
         open,
     }),
     (dispatch)=>{
