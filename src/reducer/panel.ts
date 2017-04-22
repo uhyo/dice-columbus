@@ -43,11 +43,12 @@ export interface PanelState{
 
 // initial stateの作成
 const initialState: PanelState = deserialize(`
-     7=7    |
-   3*4=6*6  |
-    14=14   |
-            |;
-16*
+           |
+    7=7    |
+  2+6=4*2  |
+   14=14   |
+           |
+;0-/
 `);
 export default function reducer(state = initialState, action: Action){
     switch(action.type){
