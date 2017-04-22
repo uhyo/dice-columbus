@@ -7,8 +7,12 @@ import {
 import {
     ModifyAction,
 } from './modify';
+import {
+    HistoryAction,
+} from './history';
 
 export type Action =
     PanelAction |
     EditAction |
-    ModifyAction;
+    ModifyAction |
+    HistoryAction;

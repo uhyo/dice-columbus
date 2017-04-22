@@ -46,7 +46,7 @@ const initialState: PanelState = deserialize(`
            |
     7=7    |
   2+6=4*2  |
-   14=14   |
+   41=41   |
            |
 ;0-/
 `);

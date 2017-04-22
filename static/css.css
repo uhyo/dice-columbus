@@ -137,6 +137,34 @@
   border-color: #ff0000;
 }
 
+/* History */
+.history-wrapper {
+  background-color: #ffe3f4;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+
+  padding: 0.8rem;
+}
+.history-button {
+  flex: 40% 0 0;
+  border: 1px solid #ff99e6;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  padding: 2px;
+  text-align: center;
+  color: #88447a;
+
+  cursor: pointer;
+  user-select: none;
+}
+.history-button-disabled {
+  background-color: #f4f4f4;
+  border-color: #aaaaaa;
+  color: #aaaaaa;
+  cursor: default;
+}
+
 /* Edit */
 .edit-wrapper {
   background-color: #eeffee;

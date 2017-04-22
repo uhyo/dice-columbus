@@ -67,6 +67,7 @@ export function moveEndAction(){
     return (dispatch: any, getState: any)=>{
         const {
             edit,
+            panel,
         } = getState();
         if (edit.move != null){
             const {
@@ -75,6 +76,10 @@ export function moveEndAction(){
             } = edit.move;
             if (from != null && to != null){
                 // 場所を入れ替える
+                dispatch({
+                    type: 'history-add',
+                    panel,
+                });
                 dispatch({
                     type: 'tile-move',
                     from,

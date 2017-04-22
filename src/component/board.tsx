@@ -4,6 +4,7 @@ import Panel from '../container/panel';
 import Remains from '../container/remains';
 import Description from './description';
 
+import History from '../container/history';
 import Edit from '../container/edit';
 
 import {
@@ -127,6 +128,7 @@ export default class BoardComponent extends React.Component<IPropBoard, IStateBo
                     <Description />
                     <Remains />
                 </div>
+                <History />
                 <Edit />
             </div>
         </div>;

@@ -12,6 +12,9 @@ import {
 import {
     setPanelAction,
 } from '../action/panel';
+import {
+    addCurrentHistoryAction,
+} from '../action/history';
 
 import TexteditComponent from '../component/textedit';
 
@@ -31,6 +34,7 @@ const TexteditContainer = connect(
     textareaSelector,
     (dispatch)=>({
         onChange(text: string){
+            dispatch(addCurrentHistoryAction());
             dispatch(setPanelAction(deserialize(text)));
         },
     }),
