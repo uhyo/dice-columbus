@@ -15,9 +15,9 @@ gulp.task('tsc', ()=>{
     .pipe(gulp.dest('dist-es6/'));
 });
 
-gulp.task('tsc-watch', ['tsc'], ()=>{
+gulp.task('tsc-watch', gulp.series('tsc', ()=>{
     gulp.watch(['src/**/*.ts', 'src/**/*.tsx'], ['tsc']);
-});
+}));
 
 gulp.task('server', ()=>{
     gulp.src(['dist', 'static'])
@@ -30,15 +30,15 @@ gulp.task('server', ()=>{
 });
 
 
-gulp.task('default', ['tsc']);
-gulp.task('watch', ['tsc-watch', 'webpack-watch', 'server']);
-
-gulp.task('webpack', ['tsc'], ()=>{
+gulp.task('webpack', gulp.series('tsc', ()=>{
     return makeWebpack(false);
-});
+}));
 gulp.task('webpack-watch', ()=>{
     return makeWebpack(true);
 });
+
+gulp.task('default', gulp.series('tsc'));
+gulp.task('watch', gulp.parallel('tsc-watch', 'webpack-watch', 'server'));
 
 function makeWebpack(watch){
   const compiler = webpack(require('./webpack.config.js'));
