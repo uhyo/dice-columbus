@@ -30,7 +30,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
-    "js-yaml": "^3.7.0",
+    "js-yaml": "^3.13.1",
     "log": "^1.4.0",
     "masao": "^0.1.0",
     "md5-file": "^3.1.1",
@@ -61,7 +61,7 @@
     "tslib": "^1.6.0",
     "type-is": "^1.6.13",
     "uglifyify": "^3.0.4",
-    "watchify": "^3.7.0"
+    "watchify": "^3.11.1"
   },
   "devDependencies": {
     "@types/connect-redis": "0.0.5",
