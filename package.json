@@ -44,7 +44,7 @@
     "my-validator": "^0.1.0",
     "native-promise-only": "^0.8.1",
     "node-jsx": "^0.13.3",
-    "nodemailer": "^2.6.4",
+    "nodemailer": "^6.4.16",
     "query-string": "^4.3.4",
     "random-string": "^0.1.2",
     "react": "^15.5.4",
