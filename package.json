@@ -11,7 +11,7 @@
   "license": "undetermined",
   "dependencies": {
     "base64-arraybuffer": "^0.1.5",
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.20.1",
     "bytes": "^2.4.0",
     "config": "^1.24.0",
     "connect-redis": "^3.1.0",
@@ -20,7 +20,7 @@
     "csurf": "^1.9.0",
     "dom-scroll-into-view": "^1.2.1",
     "ect": "^0.5.9",
-    "express": "^4.16.3",
+    "express": "^4.18.2",
     "express-session": "^1.14.2",
     "extend": "^3.0.2",
     "gulp-concat": "^2.6.0",
